@@ -10,14 +10,9 @@ class SerieController extends Controller
 
     public function index(Request $request)
     {
-        $escritas = [
-            'Serie1',
-            'Serie2',
-            'Serie3',
-            'Serie4'
-        ];
+        $series = Serie::all();
 
-        return view('series.index',compact('escritas'));
+        return view('series.index',compact('series'));
     }
 
     public function create()
@@ -26,13 +21,10 @@ class SerieController extends Controller
     }
     public function store(Request $request)
     {
-//        Poderiamos add o $nome=request->get('nome');
-//        mas por padrão o laravel já usa o get quando tentamos
-//        acessar um atributo que ele não reconhece
-        $nome = $request->nome;
-        $serie = new Serie();
-        $serie->nome = $nome;
-        var_dump($serie->save());
+//      pega todos os dados do formulario no request e os manda para Serie.
+
+        $serie = Serie::create($request->all());
+        echo "Série com id ($serie->id) criada: ($serie->nome)";
 
     }
 }

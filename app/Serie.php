@@ -17,5 +17,6 @@ class Serie extends Model
 //iremos atribuir timestamp = false
 
     public $timestamps = false;
+    protected $fillable = ['nome'];
 
 }
