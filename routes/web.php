@@ -13,4 +13,4 @@
 
 Route ::get('/series', 'SerieController@index');
 Route ::get('/series/create', 'SerieController@create');
-Route ::post('/series/create', ' SerieController@store');
+Route ::post('/series/create', 'SerieController@store');
