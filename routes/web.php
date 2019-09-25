@@ -11,7 +11,9 @@
 |
 */
 
-Route ::get('/series', 'SerieController@index');
-Route ::get('/series/create', 'SerieController@create');
+Route ::get('/series', 'SerieController@index')
+    ->name('series.index');
+Route ::get('/series/create', 'SerieController@create')
+    ->name('criar_serie');
 Route ::post('/series/create', 'SerieController@store');
 Route ::delete('/series/{id}', 'SerieController@destroy');

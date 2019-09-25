@@ -34,7 +34,7 @@ class SerieController extends Controller
                 'Série com id '.$serie->id.' e nome '.$serie->nome.' criada com sucesso'
             );
 
-        return redirect('/series');
+        return redirect()->route('series.index');
 
     }
     public function destroy(Request $request){
@@ -42,9 +42,9 @@ class SerieController extends Controller
         $request->session()
             ->flash(
                 'mensagem',
-                'A série foi exlcuida com sucesso'
+                'A série de id '.$request->id.' foi exlcuida com sucesso'
             );
 
-        return redirect('/series');
+        return redirect()->route('series.index');
     }
 }
