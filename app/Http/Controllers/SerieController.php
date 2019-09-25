@@ -10,9 +10,13 @@ class SerieController extends Controller
 
     public function index(Request $request)
     {
-        $series = Serie::all();
+        $series = Serie::query()
+        ->orderBy('nome')
+        ->get();
+        $mensagem = $request->session()
+            ->get('mensagem');
 
-        return view('series.index',compact('series'));
+        return view('series.index',compact('series', 'mensagem'));
     }
 
     public function create()
@@ -24,7 +28,13 @@ class SerieController extends Controller
 //      pega todos os dados do formulario no request e os manda para Serie.
 
         $serie = Serie::create($request->all());
-        echo "Série com id ($serie->id) criada: ($serie->nome)";
+        $request->session()
+            ->flash(
+                'mensagem',
+                'Série com id '.$serie->id.' e nome '.$serie->nome.' criada com sucesso'
+            );
+
+        return redirect('/series');
 
     }
 }
