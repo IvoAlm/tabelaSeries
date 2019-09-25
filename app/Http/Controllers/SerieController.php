@@ -37,4 +37,14 @@ class SerieController extends Controller
         return redirect('/series');
 
     }
+    public function destroy(Request $request){
+        $serie = Serie::destroy($request->id);
+        $request->session()
+            ->flash(
+                'mensagem',
+                'A série foi exlcuida com sucesso'
+            );
+
+        return redirect('/series');
+    }
 }

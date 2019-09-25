@@ -14,3 +14,4 @@
 Route ::get('/series', 'SerieController@index');
 Route ::get('/series/create', 'SerieController@create');
 Route ::post('/series/create', 'SerieController@store');
+Route ::delete('/series/{id}', 'SerieController@destroy');
