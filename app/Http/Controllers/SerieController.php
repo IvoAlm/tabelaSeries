@@ -24,12 +24,8 @@ class SerieController extends Controller
         return view('series.create');
     }
 
-    public function store(Request $request)
+    public function store(SeriesFormRequest $request)
     {
-
-        $request->validate([
-            'nome' => 'required|min:2'
-        ]);
 
         //pega todos os dados do formulario no request e os manda para Serie.
 
