@@ -11,38 +11,46 @@ class SerieController extends Controller
     public function index(Request $request)
     {
         $series = Serie::query()
-        ->orderBy('nome')
-        ->get();
+            ->orderBy('nome')
+            ->get();
         $mensagem = $request->session()
             ->get('mensagem');
 
-        return view('series.index',compact('series', 'mensagem'));
+        return view('series.index', compact('series', 'mensagem'));
     }
 
     public function create()
     {
         return view('series.create');
     }
+
     public function store(Request $request)
     {
-//      pega todos os dados do formulario no request e os manda para Serie.
+
+        $request->validate([
+            'nome' => 'required|min:2'
+        ]);
+
+        //pega todos os dados do formulario no request e os manda para Serie.
 
         $serie = Serie::create($request->all());
         $request->session()
             ->flash(
                 'mensagem',
-                'Série com id '.$serie->id.' e nome '.$serie->nome.' criada com sucesso'
+                'Série com id ' . $serie->id . ' e nome ' . $serie->nome . ' criada com sucesso'
             );
 
         return redirect()->route('series.index');
 
     }
-    public function destroy(Request $request){
+
+    public function destroy(Request $request)
+    {
         $serie = Serie::destroy($request->id);
         $request->session()
             ->flash(
                 'mensagem',
-                'A série de id '.$request->id.' foi exlcuida com sucesso'
+                'A série de id ' . $request->id . ' foi exlcuida com sucesso'
             );
 
         return redirect()->route('series.index');
