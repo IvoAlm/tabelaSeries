@@ -19,4 +19,10 @@ class Serie extends Model
     public $timestamps = false;
     protected $fillable = ['nome'];
 
+    //A relação é feita com o método
+    public function temporadas()
+    {
+        return $this->hasMany(Temporada::class);
+    }
+
 }
