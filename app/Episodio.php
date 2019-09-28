@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Episodio extends Model
 {
+    public $timestamps = false;
+
     public function temporada()
     {
         return $this->hasOne(Temporada::class);
