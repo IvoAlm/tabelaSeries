@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Serie;
+use App\Temporada;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
 
@@ -28,9 +29,15 @@ class SerieController extends Controller
     public function store(SeriesFormRequest $request)
     {
 
-        //pega todos os dados do formulario no request e os manda para Serie.
+        $serie = Serie::create(['nome' => $request->nome]);
+        $qntTemporadas = $request->qnt_temporadas;
+        for ($i = 1; $i <= $qntTemporadas; $i++) {
+           $temporada = $serie->temporadas()->create(['numero' => $i]);
 
-        $serie = Serie::create($request->all());
+            for($j = 1; $j <= $request->ep_por_temporada; $j++){
+               $temporada->episodios()->create(['numero'=> $j]);
+            }
+        }
         $request->session()
             ->flash(
                 'mensagem',
