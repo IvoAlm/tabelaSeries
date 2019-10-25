@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Episodio;
 use App\Serie;
 use App\Services\CriadorDeSerie;
 use App\Temporada;
@@ -48,11 +49,21 @@ class SerieController extends Controller
 
     public function destroy(Request $request)
     {
-        $serie = Serie::destroy($request->id);
+
+        $serie = Serie::find($request->id);
+        $serieNome = $serie->nome;
+        $serie->temporadas->each(function (Temporada $temporada){
+            $temporada->episodios()->each(function(Episodio $episodio){
+                $episodio->delete();
+            });
+            $temporada->delete();
+        });
+        $serie->delete();
+        Serie::destroy($request->id);
         $request->session()
             ->flash(
                 'mensagem',
-                'A série de id ' . $request->id . ' foi exlcuida com sucesso'
+                'A série '.$serieNome.' foi exlcuida com sucesso'
             );
 
         return redirect()->route('series.index');
