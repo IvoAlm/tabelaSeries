@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{RemovedorDeSerie, Serie};
+use App\{Services\RemovedorDeSerie, Serie};
 use App\Services\CriadorDeSerie;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
@@ -35,10 +35,11 @@ class SerieController extends Controller
             $request->ep_por_temporada
         );
 
+
         $request->session()
             ->flash(
                 'mensagem',
-                'Série com id ' . $serie->id . ' e nome ' . $serie->nome . ' criada com sucesso'
+                'Série com id ' . $serie["id"] . ' e nome ' . $serie["nome"] . ' criada com sucesso'
             );
 
         return redirect()->route('series.index');

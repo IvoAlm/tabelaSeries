@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App;
+namespace App\Services;
 
 use App\{Serie, Temporada, Episodio};
 use Illuminate\Support\Facades\DB;
@@ -11,12 +11,11 @@ class RemovedorDeSerie
 {
     public function removeSerie(Serie $serie)
     {
-        $serieNome="";
-        DB::transaction( function () use ($serieNome,$serie){
-        $serieNome = $serie->nome;
-        $this->removeTemporada($serie);
-        $serie->delete();
-        });
+        DB::beginTransaction();
+            $serieNome = $serie->nome;
+            $this->removeTemporada($serie);
+            $serie->delete();
+        DB::commit();
         return $serieNome;
     }
 
